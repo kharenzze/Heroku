@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<title>Trivial</title>
+</head>
+
+<body>
+
+
+<h1>Zona de usuario</h1>
+<p id='bienvenida' ></p>
+<p id='puntos' ></p>
+<input type="button" value="Jugar" id="Jugar"/>
+<input type="button" value="Ver Ranking" id="Ranking"/>
+<input type="button" value="Atras" id="Atras">
+
+<p> </p>
+
+<script type='text/javascript'>
+
+$.get('/ranking/'+user,function(data){
+	var recibido;
+	eval('recibido='+data);
+	$('#puntos').html('Tienes '+recibido.puntos+' puntos');
+});
+
+$('#bienvenida').html('Bienvenido '+user);
+
+$("#Ranking").click(function(){
+	$.get('/ranking',function(data){
+		document.close();
+		document.write(data);
+	});
+});
+
+$("#Jugar").click(function(){
+	$.get('/jugar/',function(data){
+		document.close();
+		document.write(data);
+	});
+});
+
+$("#Atras").click(function(){
+	$.get('/',function(data){
+		user=undefined;//ademas de volcer atras, borramos los datos de sesion del usuario. 
+		pass=undefined;
+		document.close();
+		document.write(data);
+	});
+});
+
+</script>
+
+</body> 
+</html>

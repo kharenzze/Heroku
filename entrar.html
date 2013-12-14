@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<title>Trivial</title>
+</head>
+
+<body>
+<h1>Ingreso</h1>
+<p>Beta</p>
+<input type="text" value="Usuario" id="Usuario" required />
+<input type="password" value="Pass" id="Pass" required />
+<input type="button" value="Entrar" id="Enviar"><br>
+<input type="button" value="Atras" id="Atras">
+<h2 id='Resultado'></h2>
+
+<p> </p>
+
+<script type='text/javascript'>
+var user,pass;
+
+$("#Enviar").click(function(){
+	user=$('#Usuario').val();
+	pass=$('#Pass').val();
+	if (!isNaN(user)) {
+		$('#Resultado').html('Error.El usuario no puede ser un número');
+	}
+	else{
+		$.post('log/'+user+'/'+pass,function(data){
+			if (data=="1"){
+				$('#Resultado').html('Correcto. Redirigiendo');
+				setTimeout(function(){
+					$.get('/zona',function(data1){
+						document.close();
+						document.write(data1);
+					});
+	
+				},500);
+			}
+			else{
+				$('#Resultado').html('Error.Combinación incorrecta');
+			}
+		});
+	}
+});		
+
+$("#Atras").click(function(){
+	$.get('/',function(data){
+		document.close();
+		document.write(data);
+	});
+});
+
+$("#Usuario").click(function(){//cuando se pulsa, se borra el contenido del campo
+	$("#Usuario").val('');
+});
+
+$("#Pass").click(function(){
+	$("#Pass").val('');
+});
+
+
+</script>
+
+</body> 
+</html>
