@@ -26,7 +26,7 @@ function tiempo(){
 	var i=0
 	$('#proceso').val(i);
 	temporizador=setInterval(function(){
-		i+=5;
+		i+=1;
 		$('#proceso').val(i);//mostramos el tiempo con una barra de proceso
 
 		if (i==100){		//cuando pasan 5 segundos, se manda al servidor que se ha sobrepasado el tiempo
@@ -36,7 +36,7 @@ function tiempo(){
 				document.write(data);
 			});
 		}
-	},800);
+	},160);
 }
 
 //se pide una pregunta al servidor, y se activa el contador de tiempo (5s)
